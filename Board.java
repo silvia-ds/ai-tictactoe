@@ -10,7 +10,7 @@ public class Board {
             }
         }
     }
-    //Prints the board (3x3) grid...SO COOOOOOOL
+    // Prints 3x3 grid
     public void printBoard() {
         System.out.println("Current Board:");
         for (int i = 0; i < 3; i++) {
@@ -24,27 +24,26 @@ public class Board {
         System.out.println();
     }
 
-    //Accepts row and column and makes sure it is in boundaries... if it is, it will fill that spot with the symbol of whos turn it is
-    //It will then block off that spot so it cant be placed again.
     public boolean makeMove(int row, int col, char player) {
         if (row >= 0 && row < 3 && col >= 0 && col < 3 && grid[row][col] == ' '){ //Assures that the placement is in bound of the board
             grid[row][col] = player; // Place X or O
             return true;
         }
-        return false; // Invalid move (spot taken)
+        return false; // Square is filled
     }
-    //check if board is full
+    // Check if board is full
     public boolean checkFull() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (grid[i][j] == ' ') { // If there is an empty space, board is NOT full
+                if (grid[i][j] == ' ') { // Checks for empty spot
                     return false;
                 }
             }
         }
-        return true; // Board is full if no empty spots
+        return true; // Full if no empty spots
     }
-    //Checks if there is a winner by checkig if any 3 possible spots in a row are the same char but not blank.
+    
+    //Checks if any 3 possible spots in a row are the same char (not blank)
     public char checkWinner() {
         for (int i = 0; i < 3; i++) {
             if (grid[i][0] != ' ' && grid[i][0] == grid[i][1] && grid[i][1] == grid[i][2]) return grid[i][0]; // Row
@@ -54,7 +53,7 @@ public class Board {
         if (grid[0][2] != ' ' && grid[0][2] == grid[1][1] && grid[1][1] == grid[2][0]) return grid[0][2]; // Anti-diagonal
         return ' ';
     }
-    //gets grid
+
     public char[][] getGrid(){
         return grid;
     }
