@@ -12,30 +12,30 @@ public class AIPlayer implements Player {
     @Override
     public void makeMove(Board board) {
         if (board.checkWinner() != ' ' || board.checkFull()) {
-            return; // Stop AI from playing if game is over (Dont over work...)
+            return; // Stops AI when game ends
         }
 
         int[] bestMove = findBestMove(board);  //Check the best move
-        board.makeMove(bestMove[0], bestMove[1], symbol); //Make the best move found (Place the 'o' on the board)
+        board.makeMove(bestMove[0], bestMove[1], symbol); // Places O
     }
 
     private int[] findBestMove(Board board) {
         // Check if AI can win
         int[] move = checkWinningMove(board, symbol);
-        if (move[0] != -1) { //If move is not a winning move, return it...
+        if (move[0] != -1) {
             return move;
         }
 
         // Check if AI needs to block the opponent
         char opponent;
-        if (symbol == 'X') { //Checks to see what symbol the player and AI are,n so it can clearly check the best move for player and AI...
+        if (symbol == 'X') {
             opponent = 'O';
         } else {
             opponent = 'X';
         }
 
-        move = checkWinningMove(board, opponent); //this checks if the opponent has a winnign move availabvle, and if it does it will return and block that move.
-        if (move[0] != -1) {// This is used to check what the best move for the opponent is, so the AI can block it
+        move = checkWinningMove(board, opponent); // Checks if a winning move can be blocked
+        if (move[0] != -1) {
             return move;
         }
 
@@ -67,8 +67,7 @@ public class AIPlayer implements Player {
         // If no other move is available, return a random move
         return getRandomMove(board);
     }
-//Next method is pretty common sense, checks wif there is a winning move.
-//Method is used to check best move for AI and also the player to the AI can block the player.
+    
     private int[] checkWinningMove(Board board, char player) {
         for (int i = 0; i < 3; i++) {
             // Check rows
@@ -81,7 +80,6 @@ public class AIPlayer implements Player {
             if (board.getGrid()[i][0] == player && board.getGrid()[i][2] == player && board.getGrid()[i][1] == ' ') {
                 return new int[]{i, 1};
             }
-
             // Check columns
             if (board.getGrid()[0][i] == player && board.getGrid()[1][i] == player && board.getGrid()[2][i] == ' ') {
                 return new int[]{2, i};
@@ -104,7 +102,6 @@ public class AIPlayer implements Player {
         if (board.getGrid()[0][0] == player && board.getGrid()[2][2] == player && board.getGrid()[1][1] == ' ') {
             return new int[]{1, 1};
         }
-
         if (board.getGrid()[0][2] == player && board.getGrid()[1][1] == player && board.getGrid()[2][0] == ' ') {
             return new int[]{2, 0};
         }
@@ -114,7 +111,6 @@ public class AIPlayer implements Player {
         if (board.getGrid()[0][2] == player && board.getGrid()[2][0] == player && board.getGrid()[1][1] == ' ') {
             return new int[]{1, 1};
         }
-
         return new int[]{-1, -1}; // No winning move found
     }
 
@@ -126,6 +122,6 @@ public class AIPlayer implements Player {
                 }
             }
         }
-        return new int[]{-1, -1}; // No available move (shouldn't happen)
+        return new int[]{-1, -1}; // No available moves (highly unlikely)
     }
 }
