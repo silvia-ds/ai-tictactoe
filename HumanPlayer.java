@@ -15,10 +15,10 @@ public class HumanPlayer implements Player {
     }
 
     @Override
-    public void makeMove(Board board) { //Hget input for row and column
+    public void makeMove(Board board) {
         System.out.println("Enter row and column (0-2): ");
         int row = scanner.nextInt();
         int col = scanner.nextInt();
-        board.makeMove(row, col, symbol); //Uses the row and column + symbol to make a move... Row and column are human input
+        board.makeMove(row, col, symbol);
     }
 }
